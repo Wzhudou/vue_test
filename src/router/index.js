@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from "../store/index";
 
 Vue.use(VueRouter)
 
@@ -8,39 +9,42 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      auth: true,
+    },
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('../views/Login.vue'),
   },
-  // {
-  //   path: '/admin',
-  //   name: 'admin',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue'),
-  //   children: [
-  //     {
-  //       path: '/admin/detail/:name',
-  //       name: 'detail',
-  //       component: () => import('../views/Detail.vue'),
-  //     }
-  //   ],
-  //   meta: {
-  //     auth: true,
-  //   },
-  //   // // 二、特定路由守卫
-  //   // beforeEnter(to, from, next) {
-  //   //   if(window.isLogin) {
-  //   //     next();
-  //   //   } else {
-  //   //     next('/login?redirect=' + to.fullPath)
-  //   //   }
-  //   // }
-  // },
+  {
+    path: '/admin',
+    name: 'admin',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue'),
+    children: [
+      {
+        path: '/admin/detail/:name',
+        name: 'detail',
+        component: () => import('../views/Detail.vue'),
+      }
+    ],
+    meta: {
+      auth: true,
+    },
+    // // 二、特定路由守卫
+    // beforeEnter(to, from, next) {
+    //   if(window.isLogin) {
+    //     next();
+    //   } else {
+    //     next('/login?redirect=' + to.fullPath)
+    //   }
+    // }
+  },
   // 动态路由匹配
   {
     path: '/detail/:name',
@@ -95,7 +99,7 @@ const router = new VueRouter({
 // 动态路由
 router.beforeEach((to, from, next) => {
    // 是否登录
-   if(window.isLogin) {
+   if(store.state.user.isLogin) {
     // 已登录，去登录页后定位到首页
     if (to.path === '/login') {
       next('/')

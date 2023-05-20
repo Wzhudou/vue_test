@@ -4,6 +4,11 @@
     <nav id="nav">
         <router-link to="/">首页</router-link>
         <router-link to="/admin">管理</router-link>
+
+        <div v-if="isLogin">
+            {{welcome}}
+            <button @click="logout">注销</button>
+        </div>
     </nav>
     
     <!-- 组件缓存: include需要缓存的数据 max 表示最大缓存数 -->
@@ -14,8 +19,20 @@
   </div>
 </template>
 <script>
+import {mapState, mapGetters} from 'vuex';
 export default{
    name: 'app', 
+   computed: {
+    ...mapState('user', ['isLogin']),
+    ...mapGetters('user', ['welcome']),
+   },
+   methods: {
+    logout() {
+        // window.isLogin = false;
+        this.$store.commit('user/logout');
+        this.$router.push('/');
+    }
+   },
 }
 </script>
 <style scoped lang="scss">
