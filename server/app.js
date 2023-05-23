@@ -9,6 +9,8 @@ app.use(
   })
 );
 
+const router = require('./router');
+app.use('/api', router);
 // 设置允许跨域访问该服务
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

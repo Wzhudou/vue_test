@@ -3,7 +3,7 @@ export default store => {
     // store初始化的时候，将存储在localStorage的状态还原
     if (localStorage) {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log('3444', user);
+        // console.log('3444', user);
         if (user) {
             store.commit('user/login', user.username);
         }
@@ -15,11 +15,11 @@ export default store => {
         // {type: 'user/logout'}
         // {type: 'cart/addCart'}
         if(mutation.type === 'user/login') {
-            console.log('123', state);
+            // console.log('123', state);
             const user = JSON.stringify(state.user);
             localStorage.setItem('user', user);
         } else if (mutation.type === 'user/logout') {
-            console.log('222', mutation.type);
+            // console.log('222', mutation.type);
             localStorage.removeItem('user');
         }
     })

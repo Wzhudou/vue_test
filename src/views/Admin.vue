@@ -1,6 +1,6 @@
 <template>
   <div class="admin">
-    <img src="@/assets/logo.png" alt="">
+    <!-- <img src="@/assets/logo.png" alt=""> -->
     <a href="https://www.baidu.com/">test</a>
     <!-- 当assets存放在public下然后c目录下时， -->
     <!-- <img :src="`${publicPath}assets/logo.png`" alt=""> -->

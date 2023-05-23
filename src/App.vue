@@ -5,7 +5,7 @@
         <router-link to="/">首页</router-link>
         <router-link to="/admin">管理</router-link>
 
-        <div v-if="isLogin">
+        <div v-if="isLogin" class="welcome">
             {{welcome}}
             <button @click="logout">注销</button>
         </div>
@@ -53,6 +53,9 @@ export default{
       
     #nav {
         padding: 30px;
+        .welcome {
+            margin-top: 20px;
+        }
     }
 
     #nav a {

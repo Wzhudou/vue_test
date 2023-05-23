@@ -1,4 +1,6 @@
-import axios from 'axios';
+// import axios from 'axios';
+// 使用封装的axios
+import request from "../utils/http";
 // 模拟一步数据调用
 // export function getCourses() {
 //     return new Promise((resolve) => {
@@ -8,5 +10,5 @@ import axios from 'axios';
 //     })
 // }
  export function getCourses() {
-    return axios.get('/api/courses').then(res => res.data);
+    return request.get('/api/courses');
  }

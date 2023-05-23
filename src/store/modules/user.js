@@ -13,6 +13,7 @@ export default {
         logout(state) {
           state.isLogin = false;
           state.username = '';
+          sessionStorage.removeItem('token');
         },
       },
       // 派生状态

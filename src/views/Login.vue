@@ -7,6 +7,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex';
+    // import { loginData } from "@/api/login";
     export default {
         name: 'Login',
         data() {
@@ -55,18 +56,30 @@
             ...mapState('user', ['isLogin'])
         },
         methods: {
-            login() {
+            async login() {
+                try {
+                    const data = await this.$api.login.logined({
+                        username: 'wgj',
+                        password: '123',
+                    });
+
+                    const token = data.token;
+                    sessionStorage.setItem('token', token);
+                    // 映射方法
+                    this['user/login']('admin').then(() => {
+                        this.$router.push(this.$route.query.redirect);
+                    }).catch(() => {
+                        alert('用户名错误， 请重试');
+                    })
+                } catch(e) {
+                    alert(e);
+                }
                 // window.isLogin = true;
                 // 提交mutation变更状态
                 // this.$store.commit('login');
                 // 派发动作触发action
                 // this.$store.dispatch('user/login', 'admin').then(() => {
-                // 映射方法
-                this['user/login']('admin').then(() => {
-                    this.$router.push(this.$route.query.redirect);
-                }).catch(() => {
-                    alert('用户名错误， 请重试');
-                })
+            
             },
             logout() {
                 // window.isLogin = false;
